@@ -34,7 +34,8 @@
 **Conference Room Reservation** is a web application which allows users to
 
 * Book conference rooms.
-* while also checking the availability of the conference room
+* While also checking the availability of the conference room
+* The data is saved in the local storage
 
 ## 🛠 Built With <a name="built-with"></a>
 
