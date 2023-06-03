@@ -1,0 +1,128 @@
+<div class="container mt-5">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="card">
+      <div class="card-header">
+        Reserve a Conference room
+      </div>
+      <div class="card-body">
+        <div class="text-center p-3">
+          <h5 class="card-title">Fill in the form to make a reservation</h5>
+          <span class="text-danger" id="error_msg"></span>
+          <span id="success_msg"></span>
+        </div>
+        <div class="container">
+          <div class="row py-3">
+            <div class="col-md">
+              <label for="start">Start date:</label>
+              <input class="form-control form-control-lg mt-2" type="date" id="start" name="trip-start" min="2018-01-01"
+                     formControlName="start_date">
+            </div>
+            <div class="col-md">
+              <label for="start">End date:</label>
+              <input class="form-control form-control-lg mt-2" type="date" id="end" name="trip-start" min="2018-01-01"
+                     formControlName="end_date">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md">
+              <select class="form-select form-select-lg mb-3" aria-label="Default select example" formControlName="type">
+                <option *ngFor="let type of types_of_conference_rooms" value="{{type.code}}">{{type.name}}</option>
+              </select>
+            </div>
+            <div class="col-md">
+              <input class="form-control form-control-lg" type="text" placeholder="Your name min 3 characters"
+              formControlName="user_name">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-between flex-wrap">
+        <button type="reset" class="btn btn-outline-primary">Reset</button>
+        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #form_details let-modal>
+  <div class="card" *ngIf="reservation_obj">
+    <div class="modal-header card-header card-header-primary">
+      <h4 class="modal-title" id="modal-basic-reservation">Reservation Details</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped table-primary">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Start date: </td>
+          <td>{{reservation_obj.start}}</td>
+        </tr>
+        <tr>
+          <td>End date: </td>
+          <td>{{reservation_obj.end}}</td>
+        </tr>
+        <tr>
+          <td>Type: </td>
+          <td>{{reservation_obj.type}}</td>
+        </tr>
+        <tr>
+          <td>Name: </td>
+          <td>{{reservation_obj.name}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="card-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click'); saveReservation(reservation_obj)">Save</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #info let-modal>
+  <div class="card" *ngIf="booked">
+    <div class="modal-header card-header card-header-primary">
+      <h4 class="modal-title" id="modal-basic-info">Reservation Details</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="card-body">
+      <p class="text-danger">Please change the date it is overlapping with an existing reservation or simple choose another room</p>
+      <table class="table table-info table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Start date: </td>
+          <td>{{booked.start}}</td>
+        </tr>
+        <tr>
+          <td>End date: </td>
+          <td>{{booked.end}}</td>
+        </tr>
+        <tr>
+          <th>Type: </th>
+          <td>{{booked.type}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="card-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Close</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+

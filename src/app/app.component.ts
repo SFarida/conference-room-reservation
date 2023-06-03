@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'conference-room-reservation';
+  year = new Date().getFullYear();
 }
